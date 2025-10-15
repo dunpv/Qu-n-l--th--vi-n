@@ -3,24 +3,14 @@ import Input from "antd/es/input/Input";
 import TextArea from "antd/es/input/TextArea";
 import Title from "antd/es/typography/Title";
 import type { IProduct } from "../interfaces/IProduct";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { add } from "../services/products.services";
+import useCreate from "../hooks/useCreate";
 
 const ProductAdd = () => {
-  const queryClient = useQueryClient();
-  const { mutate } = useMutation({
-    mutationFn: async (product: IProduct) => await add(product),
-    // nếu xóa thành công
-    onSuccess: () => {
-      // gọi lại API để lấy dữ liệu mới nhất
-      queryClient.invalidateQueries({
-        queryKey: ["BOOKS"],
-      });
-    },
-  });
+  const { mutate } = useCreate({ resource: "BOOKS" });
   const onFinish = (values: IProduct) => {
     mutate(values);
   };
+
   return (
     <div>
       <Title level={2}>Thêm sách</Title>
