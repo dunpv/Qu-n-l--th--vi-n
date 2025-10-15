@@ -22,6 +22,12 @@ const ProductList = () => {
   return (
     <div>
       <Title level={2}>Danh sách sách</Title>
+      <Button type="primary">
+        <Link to="/admin/products/add" style={{ color: "#fff" }}>
+          Thêm mới
+        </Link>
+      </Button>
+
       <Skeleton loading={isLoading}>
         <Table dataSource={data}>
           <Column title="Tên sách" dataIndex="tenSach" key="tenSach" />
